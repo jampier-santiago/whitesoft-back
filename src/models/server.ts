@@ -5,6 +5,7 @@ import cors from "cors";
 // Routes
 import routerCountries from "../routes/countries.routes";
 import routerRegister from "../routes/register.routes";
+import auth from "../routes/auth.routes";
 
 // DB
 import { dbConnection } from "../db/config";
@@ -13,13 +14,13 @@ class Server {
   app = express();
   port;
 
-  valueRoutes: { countries: string; login: string; registers: string };
+  valueRoutes: { countries: string; auth: string; registers: string };
 
   constructor() {
     this.port = process.env.PORT ?? 3000;
     this.valueRoutes = {
       countries: "/api/countries",
-      login: "/api/login",
+      auth: "/api/auth",
       registers: "/api/registers",
     };
 
@@ -47,6 +48,7 @@ class Server {
   routes() {
     this.app.use(this.valueRoutes.countries, routerCountries);
     this.app.use(this.valueRoutes.registers, routerRegister);
+    this.app.use(this.valueRoutes.auth, auth);
   }
 
   listen() {

@@ -1,6 +1,6 @@
 // Packages
 import { response } from "express";
-import axios from "axios";
+import { AxiosAdapter } from "../data/adapters/axios.adapter";
 
 // Model
 import CountryModel, { Country } from "../models/country.model";
@@ -23,21 +23,22 @@ export const getAllConuntriesService = async (res = response) => {
 
   // get data of countries api external
   if (countries.length === 0) {
-    const { data } = await axios.get(process.env.API_COUNTRIES ?? "");
+    new AxiosAdapter()
+      .get<Array<Country>>(process.env.API_COUNTRIES ?? "")
+      .then(async (data) => {
+        const dataCountry: Array<Country> = data.map((country: any) => ({
+          name: country.name.common,
+          state: true,
+          flag: country.flags.png,
+          timezone: country.timezones[0],
+        }));
 
-    const dataCountry: Array<Country> = data.map((country: any) => ({
-      name: country.name.common,
-      state: true,
-      flag: country.flags.png,
-      timezone: country.timezones[0],
-    }));
+        const result = await CountryModel.insertMany(
+          dataCountry.sort(arrangeCountries)
+        );
 
-    const result = await CountryModel.insertMany(
-      dataCountry.sort(arrangeCountries)
-    );
-
-    res.json(result);
-    return;
+        res.json(result);
+      });
   }
 
   res.json(countries);
