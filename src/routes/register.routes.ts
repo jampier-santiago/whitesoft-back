@@ -14,6 +14,7 @@ router.post(
   "/",
   [
     check("name", "The field name is required").notEmpty().isString(),
+    check("country", "It is not a mongo id").isMongoId(),
     validCountry,
     validarCampos,
   ],
