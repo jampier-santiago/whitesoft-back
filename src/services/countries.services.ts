@@ -28,7 +28,7 @@ export const getAllConuntriesService = async (res = response) => {
     const dataCountry: Array<Country> = data.map((country: any) => ({
       name: country.name.common,
       state: true,
-      flag: country.flag,
+      flag: country.flags.png,
       timezone: country.timezones[0],
     }));
 

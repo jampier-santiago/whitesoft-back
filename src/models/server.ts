@@ -4,6 +4,7 @@ import cors from "cors";
 
 // Routes
 import routerCountries from "../routes/countries.routes";
+import routerRegister from "../routes/register.routes";
 
 // DB
 import { dbConnection } from "../db/config";
@@ -45,6 +46,7 @@ class Server {
 
   routes() {
     this.app.use(this.valueRoutes.countries, routerCountries);
+    this.app.use(this.valueRoutes.registers, routerRegister);
   }
 
   listen() {

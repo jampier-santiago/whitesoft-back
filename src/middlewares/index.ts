@@ -1,5 +1,5 @@
 import validarJWT from "./validarJWT";
 import { validarCampos } from "./validarCampos";
-import validarCamposVenta from "./validarCamposVenta";
+import { validCountry } from "./checkCountry";
 
-export { validarCampos, validarJWT, validarCamposVenta };
+export { validarCampos, validarJWT, validCountry };
