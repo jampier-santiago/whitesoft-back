@@ -17,19 +17,19 @@ export const loginService = async (req = request, res = response) => {
     if (!usuario) {
       return res
         .status(400)
-        .json({ msg: "Usuario / password no son correctos - correo" });
+        .json({ msg: "Usuario / password no son correctos" });
     }
     // Ver si el usuario esta activo
     if (!usuario.state) {
       return res.status(400).json({
-        msg: "Usuario / Password no son correctos / estado: false",
+        msg: "Usuario / Password no son correctos",
       });
     }
     // Validar contraseña
     const validPassword = bcryptjs.compareSync(password, usuario.password);
     if (!validPassword) {
       return res.status(400).json({
-        msg: "Usuario / Password no son correctos / password",
+        msg: "Usuario / Password no son correctos",
       });
     }
     // JWT
