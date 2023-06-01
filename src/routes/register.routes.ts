@@ -3,12 +3,17 @@ import { Router } from "express";
 import { check } from "express-validator";
 
 // Controllers
-import { postRegister } from "../controllers/register.controllers";
+import {
+  postRegister,
+  getAllRegister,
+} from "../controllers/register.controllers";
 
 // Middlewares
-import { validarCampos, validCountry } from "../middlewares";
+import { validarCampos, validCountry, validarJWT } from "../middlewares";
 
 const router = Router();
+
+router.get("/", [validarJWT, validarCampos], getAllRegister);
 
 router.post(
   "/",

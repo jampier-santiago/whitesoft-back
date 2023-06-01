@@ -14,7 +14,7 @@ const RegisterSchema = new Schema<Register>({
     indexes: true,
   },
   date: { type: Date, required: true },
-  country: { type: Schema.Types.ObjectId, required: true },
+  country: { type: Schema.Types.ObjectId, required: true, ref: "Country" },
 });
 
 RegisterSchema.methods.toJSON = function () {

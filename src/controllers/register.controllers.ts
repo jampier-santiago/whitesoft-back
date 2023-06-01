@@ -2,7 +2,10 @@
 import { request, response } from "express";
 
 // Services
-import { postRegisterService } from "../services/register.services";
+import {
+  postRegisterService,
+  getAllRegistersService,
+} from "../services/register.services";
 
 export const postRegister = (req = request, res = response) => {
   const { name, country } = req.body;
@@ -10,4 +13,8 @@ export const postRegister = (req = request, res = response) => {
   const data = { name, country, date: new Date() };
 
   postRegisterService(data, res);
+};
+
+export const getAllRegister = (req = request, res = response) => {
+  getAllRegistersService(res);
 };

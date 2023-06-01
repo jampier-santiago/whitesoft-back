@@ -15,3 +15,15 @@ export const postRegisterService = async (data: Register, res = response) => {
     throw new Error(error);
   }
 };
+
+export const getAllRegistersService = async (res = response) => {
+  try {
+    const registers = await RegisterModel.find()
+      .populate("country", ["name", "flag"])
+      .limit(5);
+
+    res.json(registers);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
