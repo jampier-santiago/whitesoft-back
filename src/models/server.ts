@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 
 // Routes
+import routerCountries from "../routes/countries.routes";
 
 // DB
 import { dbConnection } from "../db/config";
@@ -43,7 +44,7 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.valueRoutes.countries);
+    this.app.use(this.valueRoutes.countries, routerCountries);
   }
 
   listen() {
