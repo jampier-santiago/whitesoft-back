@@ -8,31 +8,36 @@ import generarJWT from "../helpers/jwt";
 // Models
 import UserModel from "../models/user.model";
 
+/**
+ * Function to make the user login
+ */
 export const loginService = async (req = request, res = response) => {
   const { email, password } = req.body;
 
   try {
-    // Verificar si el email existe
+    // Check if the email exists
     const usuario = await UserModel.findOne({ email });
     if (!usuario) {
       return res
         .status(400)
         .json({ msg: "Usuario / password no son correctos" });
     }
-    // Ver si el usuario esta activo
+
+    // Check if the user is active
     if (!usuario.state) {
       return res.status(400).json({
         msg: "Usuario / Password no son correctos",
       });
     }
-    // Validar contraseña
+    // validate password
     const validPassword = bcryptjs.compareSync(password, usuario.password);
     if (!validPassword) {
       return res.status(400).json({
         msg: "Usuario / Password no son correctos",
       });
     }
-    // JWT
+
+    // Generate JWT
     const token = await generarJWT(usuario.id);
     res.json({ usuario, token });
   } catch (error) {

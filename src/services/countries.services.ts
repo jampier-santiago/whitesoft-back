@@ -18,6 +18,9 @@ const arrangeCountries = (a: Country, b: Country) => {
   }
 };
 
+/**
+ * Get all countries from the database
+ */
 export const getAllConuntriesService = async (res = response) => {
   const countries = await CountryModel.find({ state: true });
 

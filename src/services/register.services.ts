@@ -4,6 +4,9 @@ import { response } from "express";
 // Model
 import RegisterModel, { Register } from "../models/register.model";
 
+/**
+ * Function to generate a new record
+ */
 export const postRegisterService = async (data: Register, res = response) => {
   try {
     const newRegister = new RegisterModel(data);
@@ -16,11 +19,15 @@ export const postRegisterService = async (data: Register, res = response) => {
   }
 };
 
+/**
+ * Function to fetch all records
+ */
 export const getAllRegistersService = async (res = response) => {
   try {
-    const registers = await RegisterModel.find()
-      .populate("country", ["name", "flag"])
-      .limit(5);
+    const registers = await RegisterModel.find().populate("country", [
+      "name",
+      "flag",
+    ]);
 
     res.json(registers);
   } catch (error) {
